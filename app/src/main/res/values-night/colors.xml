@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FF000000</color>
+    <color name="black">#FFFFFFFF</color>
+    <color name="colorPrimary">#FF7EAA92</color>
+    <color name="colorSetPasswordIcon">#A7BDFF</color>
+    <color name="colorStroke">#E6ECFF</color>
+</resources>
