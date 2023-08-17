@@ -18,7 +18,7 @@ interface AppDao {
     suspend fun updateAppStatus(app: App)
 
     @Query(value = "select * from apps order by appName")
-    fun getApps(): LiveData<List<App>>
+    fun getApps(): List<App>
 
     @Query(value = "select * from apps  WHERE packageName LIKE :currentPackageName")
     fun isAppLocked(currentPackageName: String): App?

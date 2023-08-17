@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.applockapp.R
 import com.example.applockapp.data.preference.AppPreferences
 import com.example.applockapp.presentation.password.PasswordViewModel
+import com.example.applockapp.service.AppLockAccessibilityService
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -67,6 +68,7 @@ class LockScreenActivity : AppCompatActivity(), View.OnClickListener {
         tvPasswordThird = findViewById(R.id.tv_password_third)
         tvPasswordFourth = findViewById(R.id.tv_password_fourth)
 
+        llRoot = findViewById(R.id.ll_root_view_lock)
     }
 
     private fun onClicks() {
@@ -145,10 +147,15 @@ class LockScreenActivity : AppCompatActivity(), View.OnClickListener {
 
 
                 if (currentPassword == appPassword) {
-                    viewModel.setPassword(currentPassword)
+                    Snackbar.make(
+                        llRoot, "Correct password", Snackbar.LENGTH_LONG
+                    ).show()
+                    AppLockAccessibilityService.isCurrentOpenToUsingPackage = true
+                    finish()
+
                 } else {
                     Snackbar.make(
-                        llRoot, "The password does not meet the requirement", Snackbar.LENGTH_LONG
+                        llRoot, "Wrong password", Snackbar.LENGTH_LONG
                     ).show()
                 }
                 setCountStar(currentPassword)

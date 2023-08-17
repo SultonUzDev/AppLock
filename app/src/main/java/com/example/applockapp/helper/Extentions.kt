@@ -1,39 +1,25 @@
 package com.example.applockapp.helper
 
 import android.annotation.SuppressLint
-import android.graphics.Color
-import com.google.android.material.textview.MaterialTextView
 
 
 @SuppressLint("SetTextI18n")
-fun MaterialTextView.getPasswordSizeInfo(s: String) {
-    when (s.length) {
+fun String.getPasswordSizeInfo(): String {
+    when (this.length) {
         in 0..0 -> {
-            this.apply {
-                text = "No password has been set yet"
-                setTextColor(Color.parseColor("#4682A9"))
-            }
+            return "No password has been set yet"
         }
 
         in 1..3 -> {
-            this.apply {
-                text = "Password is too short"
-                setTextColor(Color.parseColor("#F0B86E"))
-            }
+            return "Password is too short"
         }
 
-        in 4..6 -> {
-            this.apply {
-                text = "Good password"
-                setTextColor(Color.parseColor("#557A46"))
-            }
+        in 4..4 -> {
+            return "Good password"
         }
 
         else -> {
-            this.apply {
-                text = "Password is too long"
-                setTextColor(Color.parseColor("#FE0000"))
-            }
+            return "The password does not meet the requirement"
 
         }
     }

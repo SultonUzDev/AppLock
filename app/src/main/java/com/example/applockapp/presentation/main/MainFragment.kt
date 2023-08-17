@@ -1,14 +1,13 @@
 package com.example.applockapp.presentation.main
 
-import android.content.Intent
 import android.os.Bundle
-import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.widget.AppCompatImageButton
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,10 +16,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.applockapp.R
 import com.example.applockapp.data.apps.AppManager
 import com.example.applockapp.data.db.App
+import com.example.applockapp.data.preference.AppPreferences
+import com.example.applockapp.helper.Resource
 import com.example.applockapp.presentation.adapter.AppAdapter
-import com.example.applockapp.service.AppLockAccessibilityService
-import com.google.android.material.button.MaterialButton
-import com.google.android.material.snackbar.Snackbar
 
 class MainFragment : Fragment() {
     private lateinit var appManager: AppManager
@@ -34,7 +32,7 @@ class MainFragment : Fragment() {
     private lateinit var rootView: RelativeLayout
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_main, container, false)
@@ -65,21 +63,34 @@ class MainFragment : Fragment() {
         initialize()
 
 
-
-
-
+        val appPreferences = AppPreferences(requireContext())
 
         appAdapter.setOnStatusButtonClickListener(object :
             AppAdapter.OnSetStatusButtonClickListener {
             override fun onStatusButtonClickListener(app: App) {
-                mainViewModel.updateAppStatus(app)
+                if (appPreferences.password.isNotEmpty())
+                    mainViewModel.updateAppStatus(app)
+                else findNavController().navigate(R.id.action_mainFragment_to_setPasswordFragment)
             }
         })
     }
 
     private fun initialize() {
-        mainViewModel.apps.observe(viewLifecycleOwner) { apps ->
-            appAdapter.setData(apps)
+        mainViewModel.getApps()
+        mainViewModel.apps.observe(viewLifecycleOwner) { data ->
+            when (data) {
+                is Resource.Error -> {
+                    Log.d("mlog", "Error :${data.message} ");
+                }
+
+                is Resource.Loading -> {
+                    Toast.makeText(requireContext(), "Loading", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Success -> {
+                    appAdapter.setData(data.data!!)
+                }
+            }
         }
 
     }

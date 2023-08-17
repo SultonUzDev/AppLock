@@ -7,7 +7,9 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.applockapp.R
+import com.example.applockapp.helper.getPasswordSizeInfo
 import com.example.applockapp.helper.isPasswordSizeEnough
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
@@ -153,9 +155,10 @@ class SetPasswordFragment : Fragment(), View.OnClickListener {
             R.id.btn_ok -> {
                 if (password.isPasswordSizeEnough()) {
                     viewModel.setPassword(password)
+                    findNavController().navigateUp()
                 } else {
                     Snackbar.make(
-                        llRoot, "The password does not meet the requirement", Snackbar.LENGTH_LONG
+                        llRoot, password.getPasswordSizeInfo(), Snackbar.LENGTH_LONG
                     ).show()
                 }
                 setCountStar(password)

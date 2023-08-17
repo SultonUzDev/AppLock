@@ -13,10 +13,16 @@ class AppLockAccessibilityService : AccessibilityService() {
     private lateinit var appDatabase: AppDatabase
     private lateinit var appDao: AppDao
 
+    companion object {
+        var isRunService = false
+        var prevPackageName = "com.example.applockapp"
+        var currentPackageName = "com.example.applockapp"
+        var isCurrentOpenToUsingPackage = false
+    }
+
     override fun onServiceConnected() {
         super.onServiceConnected()
         isRunService = true
-        Log.d("mlog", "Service connected: ");
         appDatabase = AppDatabase.getInstance(this)
         appDao = appDatabase.appDao()
 
@@ -27,21 +33,25 @@ class AppLockAccessibilityService : AccessibilityService() {
             if (event.packageName != null && event.packageName != prevPackageName) {
                 currentPackageName = prevPackageName
                 prevPackageName = event.packageName.toString()
+
                 val app = appDao.isAppLocked(event.packageName.toString())
-
+                Log.d("mlog", "currentPackageName: $currentPackageName");
                 if (app != null) {
-
                     if (app.locked) {
-                        val intent = Intent(applicationContext, LockScreenActivity::class.java)
+                        Log.d("mlog", "App is  locked: ");
+                        val intent = Intent(this, LockScreenActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
+
                     }
 
 
                 } else {
-                    Log.d("mlog", "Current event is null");
+                    Log.d("mlog", "App does not exist: ");
                 }
             }
+        } else {
+            Log.d("mlog", "Current event is null");
         }
 
     }
@@ -50,9 +60,4 @@ class AppLockAccessibilityService : AccessibilityService() {
         Log.d("mlog", "onInterrupt : works");
     }
 
-    companion object {
-        var isRunService = false
-        var prevPackageName = "com.example.applockapp"
-        var currentPackageName = "com.example.applockapp"
-    }
 }

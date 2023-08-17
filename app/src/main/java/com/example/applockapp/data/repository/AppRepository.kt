@@ -6,7 +6,7 @@ import com.example.applockapp.data.db.AppDao
 
 class AppRepository(private val appDao: AppDao) {
 
-    fun getApps(): LiveData<List<App>> = appDao.getApps()
+    fun getApps(): List<App> = appDao.getApps()
 
     suspend fun insertAppsToDb(app: App) {
         appDao.insertApp(app)
