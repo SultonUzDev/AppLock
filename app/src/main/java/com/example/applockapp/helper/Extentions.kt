@@ -41,16 +41,14 @@ fun MaterialTextView.getPasswordSizeInfo(s: String) {
 
 fun String.isPasswordSizeEnough(): Boolean = (this.length in 4..6)
 
-fun MaterialTextView.setCountStar(s: String) {
-    when (s.length) {
-        0 -> this.text = ""
-        1 -> this.text = "*"
-        2 -> this.text = "**"
-        3 -> this.text = "***"
-        4 -> this.text = "****"
-        5 -> this.text = "*****"
-        6 -> this.text = "******"
-    }
-
-
-}
+//fun MaterialTextView.setCountStar(s: String) {
+//    when (s.length) {
+//        0 -> this.text = ""
+//        1 -> this.text = "*"
+//        2 -> this.text = "*"
+//        3 -> this.text = "*"
+//        4 -> this.text = "*"
+//    }
+//
+//
+//}

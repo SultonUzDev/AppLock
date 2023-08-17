@@ -16,4 +16,8 @@
     <string name="clear">Clear</string>
     <string name="ok">OK</string>
     <string name="set_password">Set your own password</string>
+    <string name="grant_accessibility_service_for_us">Grant AccessibilityService for us</string>
+    <string name="permission_desc">The app needs to know which app you are currently using. Therefore, the app needs accessibility service permission.\nThe application does not collect any information.</string>
+    <string name="next">Next</string>
+    <string name="password">Password</string>
 </resources>

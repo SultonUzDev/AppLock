@@ -21,5 +21,5 @@ interface AppDao {
     fun getApps(): LiveData<List<App>>
 
     @Query(value = "select * from apps  WHERE packageName LIKE :currentPackageName")
-     fun isAppLocked(currentPackageName: String): App
+    fun isAppLocked(currentPackageName: String): App?
 }

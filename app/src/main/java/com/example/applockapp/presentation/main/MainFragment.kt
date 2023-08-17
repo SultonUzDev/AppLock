@@ -30,7 +30,6 @@ class MainFragment : Fragment() {
     private lateinit var rvApp: RecyclerView
 
 
-    private lateinit var btnCheckPermission: MaterialButton
     private lateinit var imbSetPassword: AppCompatImageButton
     private lateinit var rootView: RelativeLayout
     override fun onCreateView(
@@ -50,7 +49,6 @@ class MainFragment : Fragment() {
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        btnCheckPermission = view.findViewById(R.id.btn_check_perm)
         rvApp = view.findViewById(R.id.rv_apps)
         rootView = view.findViewById(R.id.rv_root)
         imbSetPassword = view.findViewById(R.id.imb_set_password)
@@ -59,20 +57,13 @@ class MainFragment : Fragment() {
             findNavController().navigate(R.id.action_mainFragment_to_setPasswordFragment)
         }
 
-        btnCheckPermission.isVisible = !AppLockAccessibilityService.isRunService
+
 
 
         addAppsToDb(appManager.getInstalledApp())
         setUpRecyclerView()
         initialize()
 
-        btnCheckPermission.setOnClickListener {
-            if (!AppLockAccessibilityService.isRunService) {
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-            } else {
-                Snackbar.make(rootView, "Already granted", Snackbar.LENGTH_LONG).show()
-            }
-        }
 
 
 

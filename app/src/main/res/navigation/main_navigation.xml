@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@navigation/main_navigation">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.applockapp.presentation.main.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_setPasswordFragment"
             app:destination="@id/setPasswordFragment" />
@@ -19,4 +19,13 @@
         android:name="com.example.applockapp.presentation.password.SetPasswordFragment"
         android:label="fragment_set_password"
         tools:layout="@layout/fragment_set_password" />
+    <fragment
+        android:id="@+id/onBoardFragment"
+        android:name="com.example.applockapp.presentation.onboard.OnBoardFragment"
+        android:label="fragment_on_board"
+        tools:layout="@layout/fragment_on_board">
+        <action
+            android:id="@+id/action_onBoardFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

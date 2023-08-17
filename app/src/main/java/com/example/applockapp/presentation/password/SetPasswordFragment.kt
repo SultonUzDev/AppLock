@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.applockapp.R
 import com.example.applockapp.helper.isPasswordSizeEnough
-import com.example.applockapp.helper.setCountStar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textview.MaterialTextView
@@ -34,7 +33,7 @@ class SetPasswordFragment : Fragment(), View.OnClickListener {
     private lateinit var tvPasswordFourth: MaterialTextView
     private lateinit var llRoot: LinearLayout
 
-    private lateinit var viewModel: SetPasswordViewModel
+    private lateinit var viewModel: PasswordViewModel
     private lateinit var password: String
 
     override fun onCreateView(
@@ -47,13 +46,13 @@ class SetPasswordFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(requireActivity())[SetPasswordViewModel::class.java]
+        viewModel = ViewModelProvider(requireActivity())[PasswordViewModel::class.java]
         password = viewModel.appPreferences.password
 
         findById(view)
         onClicks()
 
-        tvPasswordFirst.setCountStar(password)
+        setCountStar(password)
     }
 
     private fun onClicks() {
@@ -98,57 +97,57 @@ class SetPasswordFragment : Fragment(), View.OnClickListener {
         when (v.id) {
             R.id.btn_one -> {
                 password += "1"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_two -> {
                 password += "2"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_three -> {
                 password += "3"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_four -> {
                 password += "4"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_five -> {
                 password += "5"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_six -> {
                 password += "6"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_seven -> {
                 password += "7"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_eight -> {
                 password += "8"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_nine -> {
                 password += "9"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_zero -> {
                 password += "0"
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_clear -> {
                 password = ""
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
             R.id.btn_ok -> {
@@ -159,11 +158,51 @@ class SetPasswordFragment : Fragment(), View.OnClickListener {
                         llRoot, "The password does not meet the requirement", Snackbar.LENGTH_LONG
                     ).show()
                 }
-                tvPasswordFirst.setCountStar(password)
+                setCountStar(password)
             }
 
         }
     }
 
+    private fun setCountStar(password: String) {
+
+        when (password.length) {
+            0 -> {
+                tvPasswordFirst.text = ""
+                tvPasswordSecond.text = ""
+                tvPasswordThird.text = ""
+                tvPasswordFourth.text = ""
+            }
+
+            1 -> {
+                tvPasswordFirst.text = "*"
+                tvPasswordSecond.text = ""
+                tvPasswordThird.text = ""
+                tvPasswordFourth.text = ""
+            }
+
+            2 -> {
+                tvPasswordFirst.text = "*"
+                tvPasswordSecond.text = "*"
+                tvPasswordThird.text = ""
+                tvPasswordFourth.text = ""
+            }
+
+            3 -> {
+                tvPasswordFirst.text = "*"
+                tvPasswordSecond.text = "*"
+                tvPasswordThird.text = "*"
+                tvPasswordFourth.text = ""
+            }
+
+            4 -> {
+                tvPasswordFirst.text = "*"
+                tvPasswordSecond.text = "*"
+                tvPasswordThird.text = "*"
+                tvPasswordFourth.text = "*"
+            }
+
+        }
+    }
 
 }

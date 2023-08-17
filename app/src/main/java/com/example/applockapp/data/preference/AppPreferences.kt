@@ -12,4 +12,5 @@ class AppPreferences(
         PreferenceManager.getDefaultSharedPreferences(context)
     }
     var password by PreferencesDelegate<String>(preferences, Constants.PASSWORD, "")
+    var isPermissionGranted by PreferencesDelegate<Boolean>(preferences, Constants.PASSWORD, false)
 }

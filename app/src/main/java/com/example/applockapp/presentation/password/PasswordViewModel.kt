@@ -2,11 +2,13 @@ package com.example.applockapp.presentation.password
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.applockapp.data.preference.AppPreferences
 import kotlinx.coroutines.launch
 
-class SetPasswordViewModel(app: Application) : AndroidViewModel(application = app) {
+class PasswordViewModel(app: Application) : AndroidViewModel(application = app) {
 
     val appPreferences: AppPreferences
 
@@ -19,4 +21,5 @@ class SetPasswordViewModel(app: Application) : AndroidViewModel(application = ap
             appPreferences.password = password
         }
     }
+
 }

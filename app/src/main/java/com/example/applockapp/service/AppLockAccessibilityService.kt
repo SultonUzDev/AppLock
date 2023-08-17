@@ -24,29 +24,30 @@ class AppLockAccessibilityService : AccessibilityService() {
 
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {
         if (event != null) {
-            Log.d("mlog", "Current event is: ${event.eventType}");
             if (event.packageName != null && event.packageName != prevPackageName) {
                 currentPackageName = prevPackageName
                 prevPackageName = event.packageName.toString()
-                Log.d("mlog", "Current package is: $currentPackageName");
                 val app = appDao.isAppLocked(event.packageName.toString())
-                if (app.locked) {
-                    Log.d("mlog", "${app.appName}: is locked");
-                    val intent = Intent(applicationContext, LockScreenActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-                    startActivity(intent)
+
+                if (app != null) {
+
+                    if (app.locked) {
+                        val intent = Intent(applicationContext, LockScreenActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                        startActivity(intent)
+                    }
+
+
+                } else {
+                    Log.d("mlog", "Current event is null");
                 }
-
-
-            } else {
-                Log.d("mlog", "Current event is null");
             }
         }
 
     }
 
     override fun onInterrupt() {
-
+        Log.d("mlog", "onInterrupt : works");
     }
 
     companion object {
